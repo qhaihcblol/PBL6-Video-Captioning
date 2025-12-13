@@ -32,7 +32,7 @@ Một nền tảng tạo phụ đề video tự động với hỗ trợ text-to
 
 - Python 3.9+
 - Node.js 18+
-- pnpm (hoặc npm/yarn)
+- npm (hoặc pnpm/yarn)
 
 ## 🔧 Cài đặt
 
@@ -54,7 +54,10 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # Tạo file .env và cấu hình
+# Linux/Mac:
 cp .env.example .env
+# Windows:
+copy .env.example .env
 
 # Chạy migration
 alembic upgrade head
@@ -69,13 +72,15 @@ uvicorn app.main:app --reload
 cd frontend
 
 # Cài đặt dependencies
-pnpm install
+npm install
 
 # Tạo file .env.local và cấu hình
 cp .env.example .env.local
+# Hoặc trên Windows:
+# copy .env.example .env.local
 
 # Chạy development server
-pnpm dev
+npm run dev
 ```
 
 ## 🚀 Chạy ứng dụng
