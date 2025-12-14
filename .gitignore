@@ -64,3 +64,6 @@ models/
 
 # OS
 Thumbs.db
+
+.git
+.idea
