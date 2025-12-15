@@ -58,10 +58,6 @@ yarn-error.log*
 *.swo
 .DS_Store
 
-# AI Models cache
-models/
-.cache/
-
 # OS
 Thumbs.db
 
