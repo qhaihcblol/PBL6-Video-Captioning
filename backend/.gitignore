@@ -34,5 +34,4 @@ uploads/thumbnails/*
 htmlcov/
 
 # AI Models cache
-models/
 .cache/
