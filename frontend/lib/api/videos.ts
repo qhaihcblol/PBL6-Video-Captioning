@@ -34,6 +34,7 @@ export const videosApi = {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        timeout: 120000, // 2 minutes for AI processing (model loading + feature extraction + caption generation)
         onUploadProgress: (progressEvent) => {
           if (onProgress && progressEvent.total) {
             const percentCompleted = Math.round(
