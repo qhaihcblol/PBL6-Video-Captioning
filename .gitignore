@@ -63,3 +63,7 @@ Thumbs.db
 
 .git
 .idea
+
+UniVL/modules/bert-base-uncased/*
+UniVL/VideoFeatureExtractor/model/*
+UniVL/weight/*
