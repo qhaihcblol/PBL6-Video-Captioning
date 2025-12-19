@@ -11,7 +11,7 @@ import { authApi } from "@/lib/api/auth"
 import { Check, Eye, EyeOff, Play } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -26,6 +26,29 @@ export default function RegisterPage() {
   })
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true)
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const token = localStorage.getItem("token")
+    const user = localStorage.getItem("user")
+    if (token && user) {
+      router.push("/dashboard")
+    } else {
+      setIsCheckingAuth(false)
+    }
+  }, [router])
+
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Checking authentication...</p>
+        </div>
+      </div>
+    )
+  }
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
