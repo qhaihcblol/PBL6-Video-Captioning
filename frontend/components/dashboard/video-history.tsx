@@ -215,18 +215,25 @@ export default function VideoHistory({ refreshTrigger }: VideoHistoryProps) {
                       View
                     </Button>
                   </DialogTrigger>
-                  <DialogContent>
+                  <DialogContent className="sm:max-w-4xl">
                     <DialogTitle>{video.title}</DialogTitle>
                     <DialogDescription>
                       {new Date(video.created_at).toLocaleString()}
                     </DialogDescription>
                     {video.video_url ? (
-                      <div className="mt-4">
+                      <div className="mt-4 space-y-4">
                         <video
                           controls
                           src={`${process.env.NEXT_PUBLIC_API_URL}${video.video_url}`}
                           className="w-full rounded-md bg-black"
                         />
+
+                        {/* Caption full */}
+                        <div className="rounded-md border border-border bg-secondary/30 p-4">
+                          <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">
+                            {video.caption}
+                          </p>
+                        </div>
                       </div>
                     ) : (
                       <p className="text-sm text-muted-foreground mt-2">No video file available</p>

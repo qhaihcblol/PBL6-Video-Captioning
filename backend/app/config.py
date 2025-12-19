@@ -39,4 +39,4 @@ class Settings(BaseSettings):
         return [ext.strip() for ext in self.ALLOWED_EXTENSIONS.split(",")]
 
 
-settings = Settings()
+settings = Settings()  # type: ignore[call-arg]
