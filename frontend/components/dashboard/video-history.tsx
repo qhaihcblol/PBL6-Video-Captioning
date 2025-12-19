@@ -223,7 +223,7 @@ export default function VideoHistory({ refreshTrigger }: VideoHistoryProps) {
                     {video.video_url ? (
                       <div className="mt-4">
                         <video
-                          cont  rols
+                          controls
                           src={`${process.env.NEXT_PUBLIC_API_URL}${video.video_url}`}
                           className="w-full rounded-md bg-black"
                         />
