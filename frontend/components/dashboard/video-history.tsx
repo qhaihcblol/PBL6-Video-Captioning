@@ -2,10 +2,17 @@
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import { useTextToSpeech } from "@/hooks/use-text-to-speech"
 import { videosApi } from "@/lib/api/videos"
 import type { VideoResponse } from "@/lib/types"
-import { ChevronLeft, ChevronRight, Clock, Copy, Square, Trash2, Volume2 } from "lucide-react"
+import { ChevronLeft, ChevronRight, Clock, Copy, Eye, Square, Trash2, Volume2 } from "lucide-react"
 import { useEffect, useState } from "react"
 
 interface VideoHistoryProps {
@@ -196,6 +203,36 @@ export default function VideoHistory({ refreshTrigger }: VideoHistoryProps) {
                     </Button>
                   </>
                 )}
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="border-border text-foreground hover:bg-secondary"
+                      disabled={!video.video_url}
+                    >
+                      <Eye className="w-4 h-4 mr-2" />
+                      View
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogTitle>{video.title}</DialogTitle>
+                    <DialogDescription>
+                      {new Date(video.created_at).toLocaleString()}
+                    </DialogDescription>
+                    {video.video_url ? (
+                      <div className="mt-4">
+                        <video
+                          cont  rols
+                          src={`${process.env.NEXT_PUBLIC_API_URL}${video.video_url}`}
+                          className="w-full rounded-md bg-black"
+                        />
+                      </div>
+                    ) : (
+                      <p className="text-sm text-muted-foreground mt-2">No video file available</p>
+                    )}
+                  </DialogContent>
+                </Dialog>
                 <Button
                   onClick={() => handleCopyCaption(video.id, video.caption)}
                   variant="outline"
