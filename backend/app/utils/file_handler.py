@@ -197,23 +197,53 @@ class FileHandler:
             - format: Video format (e.g., "mp4")
             - width: Video width in pixels (optional)
             - height: Video height in pixels (optional)
-
-        Note:
-            Current implementation returns mock data.
-            TODO: Implement real metadata extraction using ffprobe or moviepy
         """
-        # Mock implementation for now
+        import cv2
+        
         file_ext = FileHandler._get_file_extension(file_path)
-
-        metadata = {
-            "duration": "0:00",  # Mock: Would use ffprobe to get real duration
-            "format": file_ext,
-            "width": None,  # Mock: Would extract from video
-            "height": None,  # Mock: Would extract from video
-        }
-
-        print(f"[FileHandler] MOCK metadata extraction for: {file_path}")
-        return metadata
+        
+        try:
+            # Use OpenCV to get video properties
+            cap = cv2.VideoCapture(file_path)
+            if not cap.isOpened():
+                raise ValueError("Could not open video file")
+            
+            # Get duration in seconds
+            fps = cap.get(cv2.CAP_PROP_FPS)
+            frame_count = cap.get(cv2.CAP_PROP_FRAME_COUNT)
+            duration_seconds = frame_count / fps if fps > 0 else 0
+            
+            # Convert to minutes:seconds format
+            minutes = int(duration_seconds // 60)
+            seconds = int(duration_seconds % 60)
+            duration_str = f"{minutes}:{seconds:02d}"
+            
+            # Get width and height
+            width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+            height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+            
+            cap.release()
+            
+            metadata = {
+                "duration": duration_str,
+                "format": file_ext,
+                "width": width,
+                "height": height,
+            }
+            
+            print(f"[FileHandler] Metadata extracted: {metadata}")
+            return metadata
+            
+        except Exception as e:
+            print(f"[FileHandler] Error extracting metadata: {e}")
+            # Fallback to mock data
+            metadata = {
+                "duration": "0:00",
+                "format": file_ext,
+                "width": None,
+                "height": None,
+            }
+            return metadata
 
     @staticmethod
     def _get_file_extension(filename: str) -> str:
