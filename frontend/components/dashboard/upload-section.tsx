@@ -228,7 +228,7 @@ export default function UploadSection({ onUploadSuccess }: UploadSectionProps) {
               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Video Preview</p>
               <video
                 ref={videoRef}
-                src={`http://localhost:8000${captionResult.video_url}`}
+                src={`${process.env.NEXT_PUBLIC_API_URL}${captionResult.video_url}`}
                 controls
                 className="w-full rounded-lg bg-black/5 border border-border/50"
                 aria-label="Uploaded video preview"
