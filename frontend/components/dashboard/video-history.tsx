@@ -215,7 +215,7 @@ export default function VideoHistory({ refreshTrigger }: VideoHistoryProps) {
                       View
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-4xl">
+                  <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y">
                     <DialogTitle>{video.title}</DialogTitle>
                     <DialogDescription>
                       {new Date(video.created_at).toLocaleString()}
@@ -225,7 +225,7 @@ export default function VideoHistory({ refreshTrigger }: VideoHistoryProps) {
                         <video
                           controls
                           src={`${process.env.NEXT_PUBLIC_API_URL}${video.video_url}`}
-                          className="w-full rounded-md bg-black"
+                          className="w-full max-h-[50vh] rounded-md bg-black"
                         />
 
                         {/* Caption full */}
